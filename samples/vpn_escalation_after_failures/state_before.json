@@ -1,0 +1,44 @@
+{
+  "incident": {
+    "number": "INC-1002",
+    "caller_id": "u-1002",
+    "short_description": "Cannot connect to VPN - certificate error",
+    "description": "GlobalLink says 'The server certificate could not be validated / device certificate invalid'. Started this morning.",
+    "category": "network",
+    "subcategory": "vpn",
+    "priority": 3,
+    "state": "in_progress",
+    "hold_reason": null,
+    "assignment_group": "Service Desk L1",
+    "assigned_to": null,
+    "cmdb_ci": "LT-5530",
+    "requires_caller_confirmation": 1,
+    "escalated": 0,
+    "resolution_code": null,
+    "resolution_notes": null,
+    "resolution_evidence_run_id": null,
+    "resolved_by": null,
+    "resolved_at": null,
+    "closed_by": null,
+    "closed_at": null,
+    "opened_at": "2026-11-12T09:02:00+00:00",
+    "updated_at": "2026-11-12T09:02:00+00:00"
+  },
+  "work_notes": [
+    {
+      "id": 1,
+      "incident_number": "INC-1002",
+      "author_id": "u-2001",
+      "note_type": "human",
+      "body": "Caller says the error started after laptop was off-network for 3 weeks (parental leave). Likely expired device cert.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": null,
+      "created_at": "2026-11-12T09:20:00+00:00"
+    }
+  ],
+  "diagnostic_runs": [],
+  "caller_confirmations": [],
+  "escalations": [],
+  "audit": []
+}

@@ -1,0 +1,42 @@
+# EvalGo release gate for a pipeline (template).
+# Fails the build unless EvalGo issued a validly signed, current GO for exactly
+# the image this pipeline is about to release. Fail closed: a missing,
+# unsigned, expired, tampered or non-GO result blocks the release.
+#
+# On GitHub, prefer EvalGo's own check (decision 008a): EvalGo posts "EvalGo release
+# gate" through the team's EvalGo GitHub App, and the branch rule accepts it only from
+# that App, so nothing in a pull request can fake it. A workflow like this one lives in
+# the repository, so a pull request can change it: EvalGo shows such a pipeline as
+# "Connected, not enforced" at most.
+name: evalgo-gate
+on:
+  workflow_call:
+    inputs:
+      image:
+        description: Image reference being released (e.g. ghcr.io/acme/agent@sha256:...)
+        required: true
+        type: string
+      result-dir:
+        description: Folder with the EvalGo release result (statement.json + statement.bundle)
+        required: true
+        type: string
+      evalgo-source:
+        description: Where to install EvalGo from (a git URL or path). EvalGo is not published yet, so set this to your EvalGo checkout.
+        required: true
+        type: string
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: sigstore/cosign-installer@v3
+      - uses: astral-sh/setup-uv@v6
+      - name: Resolve the candidate digest
+        id: digest
+        run: |
+          digest="${{ inputs.image }}"
+          digest="${digest##*@}"
+          case "$digest" in sha256:*) ;; *) echo "image must be pinned by digest" >&2; exit 1;; esac
+          echo "value=$digest" >> "$GITHUB_OUTPUT"
+      - name: EvalGo check (fails on anything but a signed GO for this image)
+        run: uvx --from "${{ inputs.evalgo-source }}" evalgo check "${{ inputs.result-dir }}" --candidate "${{ steps.digest.outputs.value }}" --pubkey keys/evalgo.pub

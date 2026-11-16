@@ -1,0 +1,34 @@
+2026-11-14 18:04:04,267 INFO itsm_agent.seed seed loaded db=/var/folders/_y/f1dhyl156llfb2nrsq59zsw40000gn/T/itsm-vpn_diagnostic_timeout-5io8u44n/itsm.db {'users': 12, 'incidents': 12, 'work_notes': 5, 'escalations': 1}
+2026-11-14 18:04:04,520 INFO itsm_agent.service conversation started thread=thr-e6ed8bc8d3ff user=u-1003 incident=INC-1003
+2026-11-14 18:04:04,528 INFO itsm_agent.service user_message thread=thr-e6ed8bc8d3ff user=u-1003 chars=77
+2026-11-14 18:04:04,561 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['get_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:04,584 INFO itsm_agent.tools tool=get_incident incident=INC-1003 actor=u-1003 thread=thr-e6ed8bc8d3ff status=ok code=None
+2026-11-14 18:04:04,591 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['run_vpn_diagnostic'] input_tokens=None output_tokens=None
+2026-11-14 18:04:04,858 INFO itsm_agent.diag_service diagnose device=LT-6107 behavior=timeout
+2026-11-14 18:04:05,864 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-6107 outcome=timeout error_code=DIAG_TIMEOUT
+2026-11-14 18:04:05,890 INFO itsm_agent.diag_service diagnose device=LT-6107 behavior=timeout
+2026-11-14 18:04:06,897 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=2 device=LT-6107 outcome=timeout error_code=DIAG_TIMEOUT
+2026-11-14 18:04:06,909 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1003 actor=u-1003 thread=thr-e6ed8bc8d3ff status=ok code=None outcome=timeout
+2026-11-14 18:04:06,927 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=end_turn tool_calls=[] input_tokens=None output_tokens=None
+2026-11-14 18:04:06,935 INFO itsm_agent.service user_message thread=thr-e6ed8bc8d3ff user=u-1003 chars=58
+2026-11-14 18:04:06,947 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['resolve_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:06,959 INFO itsm_agent.tools tool=resolve_incident incident=INC-1003 actor=u-1003 thread=thr-e6ed8bc8d3ff status=rejected code=evidence_not_passing
+2026-11-14 18:04:06,962 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['run_vpn_diagnostic'] input_tokens=None output_tokens=None
+2026-11-14 18:04:06,988 INFO itsm_agent.diag_service diagnose device=LT-6107 behavior=timeout
+2026-11-14 18:04:07,867 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 504 -
+2026-11-14 18:04:07,993 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-6107 outcome=timeout error_code=DIAG_TIMEOUT
+2026-11-14 18:04:08,030 INFO itsm_agent.diag_service diagnose device=LT-6107 behavior=timeout
+2026-11-14 18:04:08,901 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 504 -
+2026-11-14 18:04:09,034 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=2 device=LT-6107 outcome=timeout error_code=DIAG_TIMEOUT
+2026-11-14 18:04:09,041 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1003 actor=u-1003 thread=thr-e6ed8bc8d3ff status=ok code=None outcome=timeout
+2026-11-14 18:04:09,068 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['run_vpn_diagnostic'] input_tokens=None output_tokens=None
+2026-11-14 18:04:09,094 INFO itsm_agent.diag_service diagnose device=LT-6107 behavior=timeout
+2026-11-14 18:04:09,995 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 504 -
+2026-11-14 18:04:10,096 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-6107 outcome=timeout error_code=DIAG_TIMEOUT
+2026-11-14 18:04:10,114 INFO itsm_agent.diag_service diagnose device=LT-6107 behavior=timeout
+2026-11-14 18:04:11,039 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 504 -
+2026-11-14 18:04:11,117 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=2 device=LT-6107 outcome=timeout error_code=DIAG_TIMEOUT
+2026-11-14 18:04:11,127 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1003 actor=u-1003 thread=thr-e6ed8bc8d3ff status=ok code=None outcome=timeout
+2026-11-14 18:04:11,140 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['escalate_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,151 INFO itsm_agent.tools tool=escalate_incident incident=INC-1003 actor=u-1003 thread=thr-e6ed8bc8d3ff status=ok code=None
+2026-11-14 18:04:11,154 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=end_turn tool_calls=[] input_tokens=None output_tokens=None

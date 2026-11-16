@@ -1,0 +1,35 @@
+{
+  "_comment": "Scripted device states for the local VPN diagnostic mock. Each call to /v1/vpn/diagnose for a device returns the next entry; the last entry repeats. Behaviours: pass, fail, timeout (service sleeps longer than the client timeout), http_error (HTTP 503), malformed (invalid JSON).",
+  "gateway": "vpn-eu1.northwind.example",
+  "devices": {
+    "LT-4821": [
+      {"behavior": "fail", "error_code": "CLIENT_OUTDATED", "check": "client_version", "detail": "GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min."},
+      {"behavior": "pass"}
+    ],
+    "LT-5530": [
+      {"behavior": "fail", "error_code": "CERT_EXPIRED", "check": "tls_certificate", "detail": "Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z."}
+    ],
+    "LT-6107": [
+      {"behavior": "timeout"}
+    ],
+    "LT-7002": [
+      {"behavior": "fail", "error_code": "CERT_REVOKED", "check": "tls_certificate", "detail": "Device certificate serial 4F:22:9A revoked by Identity team on 2026-11-11 (reason: keyCompromise)."}
+    ],
+    "LT-8810": [
+      {"behavior": "fail", "error_code": "GATEWAY_OUTAGE", "check": "gateway_reachability", "detail": "vpn-eu1.northwind.example not responding on 443/udp 4501 from 3 probe locations."}
+    ],
+    "LT-9034": [
+      {"behavior": "http_error", "status": 503},
+      {"behavior": "pass"}
+    ],
+    "LT-3300": [
+      {"behavior": "fail", "error_code": "AUTH_MFA_TIMEOUT", "check": "authentication", "detail": "MFA push not acknowledged within 60 s; registered authenticator last seen 2026-08-30."}
+    ],
+    "LT-1180": [
+      {"behavior": "pass"}
+    ],
+    "PRB-LYON-01": [
+      {"behavior": "pass"}
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "incident": {
+    "number": "INC-1001",
+    "caller_id": "u-1001",
+    "short_description": "VPN disconnects every few minutes when working from home",
+    "description": "Since Monday my VPN drops every 5-10 minutes and I have to reconnect. Teams calls freeze when it happens.",
+    "category": "network",
+    "subcategory": "vpn",
+    "priority": 3,
+    "state": "new",
+    "hold_reason": null,
+    "assignment_group": "Service Desk L1",
+    "assigned_to": null,
+    "cmdb_ci": "LT-4821",
+    "requires_caller_confirmation": 1,
+    "escalated": 0,
+    "resolution_code": null,
+    "resolution_notes": null,
+    "resolution_evidence_run_id": null,
+    "resolved_by": null,
+    "resolved_at": null,
+    "closed_by": null,
+    "closed_at": null,
+    "opened_at": "2026-11-12T08:14:00+00:00",
+    "updated_at": "2026-11-12T08:14:00+00:00"
+  },
+  "work_notes": [],
+  "diagnostic_runs": [],
+  "caller_confirmations": [],
+  "escalations": [],
+  "audit": []
+}

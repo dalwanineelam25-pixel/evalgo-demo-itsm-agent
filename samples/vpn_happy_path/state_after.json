@@ -1,0 +1,320 @@
+{
+  "incident": {
+    "number": "INC-1001",
+    "caller_id": "u-1001",
+    "short_description": "VPN disconnects every few minutes when working from home",
+    "description": "Since Monday my VPN drops every 5-10 minutes and I have to reconnect. Teams calls freeze when it happens.",
+    "category": "network",
+    "subcategory": "vpn",
+    "priority": 3,
+    "state": "closed",
+    "hold_reason": null,
+    "assignment_group": "Service Desk L1",
+    "assigned_to": null,
+    "cmdb_ci": "LT-4821",
+    "requires_caller_confirmation": 1,
+    "escalated": 0,
+    "resolution_code": "client_updated",
+    "resolution_notes": "GlobalLink updated from 5.1.2 to 6.0.5 (KB0010001). Diagnostic DR-INC-1001-002 passed; caller confirmed stable connection.",
+    "resolution_evidence_run_id": "DR-INC-1001-002",
+    "resolved_by": "u-1001",
+    "resolved_at": "2026-11-14T12:34:12.551257+00:00",
+    "closed_by": "u-1001",
+    "closed_at": "2026-11-14T12:34:12.561670+00:00",
+    "opened_at": "2026-11-12T08:14:00+00:00",
+    "updated_at": "2026-11-14T12:34:12.561807+00:00"
+  },
+  "work_notes": [
+    {
+      "id": 6,
+      "incident_number": "INC-1001",
+      "author_id": "u-1001",
+      "note_type": "system",
+      "body": "Automated VPN diagnostic DR-INC-1001-001 on LT-4821: FAIL (CLIENT_OUTDATED). client_version: GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min. Attempts: 1.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-977912e37a0d",
+      "created_at": "2026-11-14T12:34:12.489822+00:00"
+    },
+    {
+      "id": 7,
+      "incident_number": "INC-1001",
+      "author_id": "u-1001",
+      "note_type": "troubleshooting",
+      "body": "Employee updated GlobalLink via Company Portal to 6.0.5 per KB0010001, restarted, reports 15 min stable connection.",
+      "kb_article_id": "KB0010001",
+      "outcome": "successful",
+      "thread_id": "thr-977912e37a0d",
+      "created_at": "2026-11-14T12:34:12.515704+00:00"
+    },
+    {
+      "id": 8,
+      "incident_number": "INC-1001",
+      "author_id": "u-1001",
+      "note_type": "system",
+      "body": "Automated VPN diagnostic DR-INC-1001-002 on LT-4821: PASS. All 7 VPN checks passed on gateway vpn-eu1.northwind.example. Attempts: 1.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-977912e37a0d",
+      "created_at": "2026-11-14T12:34:12.520856+00:00"
+    },
+    {
+      "id": 9,
+      "incident_number": "INC-1001",
+      "author_id": "u-1001",
+      "note_type": "agent",
+      "body": "Resolved (client_updated) with evidence DR-INC-1001-002: GlobalLink updated from 5.1.2 to 6.0.5 (KB0010001). Diagnostic DR-INC-1001-002 passed; caller confirmed stable connection.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-977912e37a0d",
+      "created_at": "2026-11-14T12:34:12.551540+00:00"
+    },
+    {
+      "id": 10,
+      "incident_number": "INC-1001",
+      "author_id": "u-1001",
+      "note_type": "agent",
+      "body": "Closed: Client update fixed VPN drops; caller confirmed.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-977912e37a0d",
+      "created_at": "2026-11-14T12:34:12.561877+00:00"
+    }
+  ],
+  "diagnostic_runs": [
+    {
+      "seq": 1,
+      "run_id": "DR-INC-1001-001",
+      "incident_number": "INC-1001",
+      "device_id": "LT-4821",
+      "requested_by": "u-1001",
+      "outcome": "fail",
+      "error_code": "CLIENT_OUTDATED",
+      "summary": "client_version: GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min.",
+      "raw_response": "{\"diagnostic_id\": \"VPD-00001\", \"device_id\": \"LT-4821\", \"gateway\": \"vpn-eu1.northwind.example\", \"overall\": \"fail\", \"error_code\": \"CLIENT_OUTDATED\", \"checks\": [{\"name\": \"network_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"dns_resolution\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"gateway_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"tls_certificate\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"authentication\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"client_version\", \"status\": \"fail\", \"detail\": \"GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min.\"}, {\"name\": \"tunnel_stability\", \"status\": \"skipped\", \"detail\": \"Skipped because client_version failed.\"}], \"generated_at\": \"2026-11-14T12:34:12+00:00\"}",
+      "service_run_id": "VPD-00001",
+      "attempts": 1,
+      "duration_ms": 10,
+      "thread_id": "thr-977912e37a0d",
+      "created_at": "2026-11-14T12:34:12.489747+00:00",
+      "checks": [
+        {
+          "name": "network_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "dns_resolution",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "gateway_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "tls_certificate",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "authentication",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "client_version",
+          "status": "fail",
+          "detail": "GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min."
+        },
+        {
+          "name": "tunnel_stability",
+          "status": "skipped",
+          "detail": "Skipped because client_version failed."
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "run_id": "DR-INC-1001-002",
+      "incident_number": "INC-1001",
+      "device_id": "LT-4821",
+      "requested_by": "u-1001",
+      "outcome": "pass",
+      "error_code": null,
+      "summary": "All 7 VPN checks passed on gateway vpn-eu1.northwind.example.",
+      "raw_response": "{\"diagnostic_id\": \"VPD-00002\", \"device_id\": \"LT-4821\", \"gateway\": \"vpn-eu1.northwind.example\", \"overall\": \"pass\", \"error_code\": null, \"checks\": [{\"name\": \"network_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"dns_resolution\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"gateway_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"tls_certificate\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"authentication\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"client_version\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"tunnel_stability\", \"status\": \"pass\", \"detail\": \"OK\"}], \"generated_at\": \"2026-11-14T12:34:12+00:00\"}",
+      "service_run_id": "VPD-00002",
+      "attempts": 1,
+      "duration_ms": 8,
+      "thread_id": "thr-977912e37a0d",
+      "created_at": "2026-11-14T12:34:12.520808+00:00",
+      "checks": [
+        {
+          "name": "network_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "dns_resolution",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "gateway_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "tls_certificate",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "authentication",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "client_version",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "tunnel_stability",
+          "status": "pass",
+          "detail": "OK"
+        }
+      ]
+    }
+  ],
+  "caller_confirmations": [
+    {
+      "confirmation_id": "CONF-B1D6B10445",
+      "incident_number": "INC-1001",
+      "requested_by": "u-1001",
+      "question": "The VPN diagnostic now passes. Is your VPN staying connected?",
+      "evidence_run_id": "DR-INC-1001-002",
+      "status": "confirmed",
+      "responded_by": "u-1001",
+      "comment": "Yes, it's been stable through a Teams call.",
+      "thread_id": "thr-977912e37a0d",
+      "requested_at": "2026-11-14T12:34:12.532657+00:00",
+      "responded_at": "2026-11-14T12:34:12.540850+00:00"
+    }
+  ],
+  "escalations": [],
+  "audit": [
+    {
+      "id": 1,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "state",
+      "old_value": "new",
+      "new_value": "in_progress",
+      "created_at": "2026-11-14T12:34:12.478271+00:00"
+    },
+    {
+      "id": 2,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "state",
+      "old_value": "in_progress",
+      "new_value": "resolved",
+      "created_at": "2026-11-14T12:34:12.551428+00:00"
+    },
+    {
+      "id": 3,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "resolution_code",
+      "old_value": null,
+      "new_value": "client_updated",
+      "created_at": "2026-11-14T12:34:12.551428+00:00"
+    },
+    {
+      "id": 4,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "resolution_notes",
+      "old_value": null,
+      "new_value": "GlobalLink updated from 5.1.2 to 6.0.5 (KB0010001). Diagnostic DR-INC-1001-002 passed; caller confirmed stable connection.",
+      "created_at": "2026-11-14T12:34:12.551428+00:00"
+    },
+    {
+      "id": 5,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "resolution_evidence_run_id",
+      "old_value": null,
+      "new_value": "DR-INC-1001-002",
+      "created_at": "2026-11-14T12:34:12.551428+00:00"
+    },
+    {
+      "id": 6,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "resolved_by",
+      "old_value": null,
+      "new_value": "u-1001",
+      "created_at": "2026-11-14T12:34:12.551428+00:00"
+    },
+    {
+      "id": 7,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "resolved_at",
+      "old_value": null,
+      "new_value": "2026-11-14T12:34:12.551257+00:00",
+      "created_at": "2026-11-14T12:34:12.551428+00:00"
+    },
+    {
+      "id": 8,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "state",
+      "old_value": "resolved",
+      "new_value": "closed",
+      "created_at": "2026-11-14T12:34:12.561807+00:00"
+    },
+    {
+      "id": 9,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "closed_by",
+      "old_value": null,
+      "new_value": "u-1001",
+      "created_at": "2026-11-14T12:34:12.561807+00:00"
+    },
+    {
+      "id": 10,
+      "incident_number": "INC-1001",
+      "actor_id": "u-1001",
+      "via": "itsm-agent",
+      "thread_id": "thr-977912e37a0d",
+      "field": "closed_at",
+      "old_value": null,
+      "new_value": "2026-11-14T12:34:12.561670+00:00",
+      "created_at": "2026-11-14T12:34:12.561807+00:00"
+    }
+  ]
+}

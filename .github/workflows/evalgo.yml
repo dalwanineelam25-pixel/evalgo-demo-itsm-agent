@@ -1,0 +1,15 @@
+# EvalGo release gate (Integration Spec S7). On GitHub, the stronger form is EvalGo's own
+# check from its GitHub App, required on the protected branch (no code here). This job is the
+# "other CI" form: it fails unless EvalGo issued a signed, current GO for this exact image.
+name: evalgo
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  gate:
+    uses: ./.github/workflows/evalgo-gate.yml   # EvalGo's reusable gate (ci/evalgo-gate.yml in the EvalGo repository)
+    with:
+      image: ${{ vars.ITSM_AGENT_IMAGE }}
+      result-dir: evalgo-result
+      evalgo-source: ${{ vars.EVALGO_SOURCE }}
