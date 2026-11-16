@@ -1,0 +1,55 @@
+# EvalGo manifest (Integration Spec S6). EvalGo reads this file; nothing in the agent reads it.
+spec: evalgo-integration-spec/v0.1
+agent_id: itsm-agent
+title: IT incident resolution (VPN-first)
+owner: it-service-desk
+model:
+  provider: anthropic
+  name: claude-opus-5-5          # MODEL; effort from MODEL_EFFORT
+prompts:
+  - src/itsm_agent/graph.py       # SYSTEM_PROMPT
+knowledge:
+  - data/kb_articles.json         # ITSM_KB_PATH
+
+# Where record-changing tools write (S5). Everything is configurable, so a sandbox
+# can point it at its own copy.
+stores:
+  - name: itsm_db
+    kind: sqlite
+    location: ITSM_DB_PATH
+    tables: [incidents, work_notes, diagnostic_runs, caller_confirmations, escalations, incident_audit, conversations]
+  - name: outbox
+    kind: jsonl
+    location: ITSM_OUTBOX_PATH    # escalation notifications to on-call teams
+  - name: vpn_diagnostics
+    kind: http
+    location: DIAG_SERVICE_URL    # read-only checks of the employee's device
+
+tools:
+  - {name: get_incident, changes_records: false}
+  - {name: search_knowledge_base, changes_records: false}
+  - {name: run_vpn_diagnostic, changes_records: true, stores: [itsm_db], calls: [vpn_diagnostics]}
+  - {name: add_work_note, changes_records: true, stores: [itsm_db]}
+  - {name: record_troubleshooting_step, changes_records: true, stores: [itsm_db]}
+  - {name: update_incident_status, changes_records: true, stores: [itsm_db]}
+  - {name: escalate_incident, changes_records: true, stores: [itsm_db, outbox]}
+  - {name: request_caller_confirmation, changes_records: true, stores: [itsm_db]}
+  - {name: resolve_incident, changes_records: true, stores: [itsm_db]}
+  - {name: close_incident, changes_records: true, stores: [itsm_db]}
+
+# Business events (S2): OpenTelemetry span events, with identifiers only.
+events:
+  - name: resolution_confirmed
+    when: the caller answers yes to the structured "is it fixed?" question
+  - name: resolution_declined
+    when: the caller answers no (a resolved incident is reopened)
+  - name: incident_resolved
+    when: resolve_incident succeeds (latest diagnostic passed)
+  - name: incident_closed
+    when: close_incident succeeds
+  - name: incident_escalated
+    when: escalate_incident succeeds
+
+telemetry:
+  traces: OTLP over HTTP to OTEL_EXPORTER_OTLP_ENDPOINT; off when unset
+  redaction: spans carry ids, tool names and an arguments hash only; no arguments, names, emails or notes

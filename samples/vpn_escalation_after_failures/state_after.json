@@ -1,0 +1,305 @@
+{
+  "incident": {
+    "number": "INC-1002",
+    "caller_id": "u-1002",
+    "short_description": "Cannot connect to VPN - certificate error",
+    "description": "GlobalLink says 'The server certificate could not be validated / device certificate invalid'. Started this morning.",
+    "category": "network",
+    "subcategory": "vpn",
+    "priority": 3,
+    "state": "in_progress",
+    "hold_reason": null,
+    "assignment_group": "Identity & Access L2",
+    "assigned_to": null,
+    "cmdb_ci": "LT-5530",
+    "requires_caller_confirmation": 1,
+    "escalated": 1,
+    "resolution_code": null,
+    "resolution_notes": null,
+    "resolution_evidence_run_id": null,
+    "resolved_by": null,
+    "resolved_at": null,
+    "closed_by": null,
+    "closed_at": null,
+    "opened_at": "2026-11-12T09:02:00+00:00",
+    "updated_at": "2026-11-14T12:34:11.846698+00:00"
+  },
+  "work_notes": [
+    {
+      "id": 1,
+      "incident_number": "INC-1002",
+      "author_id": "u-2001",
+      "note_type": "human",
+      "body": "Caller says the error started after laptop was off-network for 3 weeks (parental leave). Likely expired device cert.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": null,
+      "created_at": "2026-11-12T09:20:00+00:00"
+    },
+    {
+      "id": 6,
+      "incident_number": "INC-1002",
+      "author_id": "u-1002",
+      "note_type": "system",
+      "body": "Automated VPN diagnostic DR-INC-1002-001 on LT-5530: FAIL (CERT_EXPIRED). tls_certificate: Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z. Attempts: 1.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.768078+00:00"
+    },
+    {
+      "id": 7,
+      "incident_number": "INC-1002",
+      "author_id": "u-1002",
+      "note_type": "troubleshooting",
+      "body": "Caller ran Company Portal sync + Check access per KB0010003 and restarted. Diagnostic still reports CERT_EXPIRED.",
+      "kb_article_id": "KB0010003",
+      "outcome": "unsuccessful",
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.794861+00:00"
+    },
+    {
+      "id": 8,
+      "incident_number": "INC-1002",
+      "author_id": "u-1002",
+      "note_type": "system",
+      "body": "Automated VPN diagnostic DR-INC-1002-002 on LT-5530: FAIL (CERT_EXPIRED). tls_certificate: Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z. Attempts: 1.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.800716+00:00"
+    },
+    {
+      "id": 9,
+      "incident_number": "INC-1002",
+      "author_id": "u-1002",
+      "note_type": "troubleshooting",
+      "body": "Caller removed VPN profile and re-synced per KB0010015. Diagnostic still reports CERT_EXPIRED.",
+      "kb_article_id": "KB0010015",
+      "outcome": "unsuccessful",
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.822144+00:00"
+    },
+    {
+      "id": 10,
+      "incident_number": "INC-1002",
+      "author_id": "u-1002",
+      "note_type": "system",
+      "body": "Automated VPN diagnostic DR-INC-1002-003 on LT-5530: FAIL (CERT_EXPIRED). tls_certificate: Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z. Attempts: 1.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.827695+00:00"
+    },
+    {
+      "id": 11,
+      "incident_number": "INC-1002",
+      "author_id": "u-1002",
+      "note_type": "agent",
+      "body": "Escalated from Service Desk L1 to Identity & Access L2 (failed_attempts_threshold): Device certificate on LT-5530 expired 2026-11-02. Re-enrolment (KB0010003) and VPN profile reset (KB0010015) both unsuccessful; diagnostics DR-INC-1002-001..003 all CERT_EXPIRED. Likely CA/enrolment issue.",
+      "kb_article_id": null,
+      "outcome": null,
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.846828+00:00"
+    }
+  ],
+  "diagnostic_runs": [
+    {
+      "seq": 1,
+      "run_id": "DR-INC-1002-001",
+      "incident_number": "INC-1002",
+      "device_id": "LT-5530",
+      "requested_by": "u-1002",
+      "outcome": "fail",
+      "error_code": "CERT_EXPIRED",
+      "summary": "tls_certificate: Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z.",
+      "raw_response": "{\"diagnostic_id\": \"VPD-00001\", \"device_id\": \"LT-5530\", \"gateway\": \"vpn-eu1.northwind.example\", \"overall\": \"fail\", \"error_code\": \"CERT_EXPIRED\", \"checks\": [{\"name\": \"network_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"dns_resolution\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"gateway_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"tls_certificate\", \"status\": \"fail\", \"detail\": \"Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z.\"}, {\"name\": \"authentication\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}, {\"name\": \"client_version\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}, {\"name\": \"tunnel_stability\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}], \"generated_at\": \"2026-11-14T12:34:11+00:00\"}",
+      "service_run_id": "VPD-00001",
+      "attempts": 1,
+      "duration_ms": 10,
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.768027+00:00",
+      "checks": [
+        {
+          "name": "network_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "dns_resolution",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "gateway_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "tls_certificate",
+          "status": "fail",
+          "detail": "Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z."
+        },
+        {
+          "name": "authentication",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        },
+        {
+          "name": "client_version",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        },
+        {
+          "name": "tunnel_stability",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        }
+      ]
+    },
+    {
+      "seq": 2,
+      "run_id": "DR-INC-1002-002",
+      "incident_number": "INC-1002",
+      "device_id": "LT-5530",
+      "requested_by": "u-1002",
+      "outcome": "fail",
+      "error_code": "CERT_EXPIRED",
+      "summary": "tls_certificate: Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z.",
+      "raw_response": "{\"diagnostic_id\": \"VPD-00002\", \"device_id\": \"LT-5530\", \"gateway\": \"vpn-eu1.northwind.example\", \"overall\": \"fail\", \"error_code\": \"CERT_EXPIRED\", \"checks\": [{\"name\": \"network_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"dns_resolution\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"gateway_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"tls_certificate\", \"status\": \"fail\", \"detail\": \"Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z.\"}, {\"name\": \"authentication\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}, {\"name\": \"client_version\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}, {\"name\": \"tunnel_stability\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}], \"generated_at\": \"2026-11-14T12:34:11+00:00\"}",
+      "service_run_id": "VPD-00002",
+      "attempts": 1,
+      "duration_ms": 8,
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.800632+00:00",
+      "checks": [
+        {
+          "name": "network_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "dns_resolution",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "gateway_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "tls_certificate",
+          "status": "fail",
+          "detail": "Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z."
+        },
+        {
+          "name": "authentication",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        },
+        {
+          "name": "client_version",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        },
+        {
+          "name": "tunnel_stability",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        }
+      ]
+    },
+    {
+      "seq": 3,
+      "run_id": "DR-INC-1002-003",
+      "incident_number": "INC-1002",
+      "device_id": "LT-5530",
+      "requested_by": "u-1002",
+      "outcome": "fail",
+      "error_code": "CERT_EXPIRED",
+      "summary": "tls_certificate: Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z.",
+      "raw_response": "{\"diagnostic_id\": \"VPD-00003\", \"device_id\": \"LT-5530\", \"gateway\": \"vpn-eu1.northwind.example\", \"overall\": \"fail\", \"error_code\": \"CERT_EXPIRED\", \"checks\": [{\"name\": \"network_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"dns_resolution\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"gateway_reachability\", \"status\": \"pass\", \"detail\": \"OK\"}, {\"name\": \"tls_certificate\", \"status\": \"fail\", \"detail\": \"Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z.\"}, {\"name\": \"authentication\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}, {\"name\": \"client_version\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}, {\"name\": \"tunnel_stability\", \"status\": \"skipped\", \"detail\": \"Skipped because tls_certificate failed.\"}], \"generated_at\": \"2026-11-14T12:34:11+00:00\"}",
+      "service_run_id": "VPD-00003",
+      "attempts": 1,
+      "duration_ms": 8,
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.827642+00:00",
+      "checks": [
+        {
+          "name": "network_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "dns_resolution",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "gateway_reachability",
+          "status": "pass",
+          "detail": "OK"
+        },
+        {
+          "name": "tls_certificate",
+          "status": "fail",
+          "detail": "Device certificate CN=LT-5530 expired 2026-11-02T00:00:00Z."
+        },
+        {
+          "name": "authentication",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        },
+        {
+          "name": "client_version",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        },
+        {
+          "name": "tunnel_stability",
+          "status": "skipped",
+          "detail": "Skipped because tls_certificate failed."
+        }
+      ]
+    }
+  ],
+  "caller_confirmations": [],
+  "escalations": [
+    {
+      "id": 2,
+      "incident_number": "INC-1002",
+      "from_group": "Service Desk L1",
+      "to_group": "Identity & Access L2",
+      "reason": "Device certificate on LT-5530 expired 2026-11-02. Re-enrolment (KB0010003) and VPN profile reset (KB0010015) both unsuccessful; diagnostics DR-INC-1002-001..003 all CERT_EXPIRED. Likely CA/enrolment issue.",
+      "reason_codes": "[\"failed_attempts_threshold\"]",
+      "escalated_by": "u-1002",
+      "thread_id": "thr-278982def8cf",
+      "created_at": "2026-11-14T12:34:11.846793+00:00"
+    }
+  ],
+  "audit": [
+    {
+      "id": 1,
+      "incident_number": "INC-1002",
+      "actor_id": "u-1002",
+      "via": "itsm-agent",
+      "thread_id": "thr-278982def8cf",
+      "field": "assignment_group",
+      "old_value": "Service Desk L1",
+      "new_value": "Identity & Access L2",
+      "created_at": "2026-11-14T12:34:11.846698+00:00"
+    },
+    {
+      "id": 2,
+      "incident_number": "INC-1002",
+      "actor_id": "u-1002",
+      "via": "itsm-agent",
+      "thread_id": "thr-278982def8cf",
+      "field": "escalated",
+      "old_value": "0",
+      "new_value": "1",
+      "created_at": "2026-11-14T12:34:11.846698+00:00"
+    }
+  ]
+}

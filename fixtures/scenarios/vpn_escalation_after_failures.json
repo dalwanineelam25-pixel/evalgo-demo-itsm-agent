@@ -1,0 +1,28 @@
+{
+  "description": "Expired device certificate. Two re-enrolment attempts are unsuccessful; a third attempt is blocked by policy and the agent escalates to Identity & Access L2.",
+  "user_id": "u-1002",
+  "incident_id": "INC-1002",
+  "turns": [
+    {"user": "My VPN still says the device certificate is invalid. INC-1002."},
+    {"user": "I did the Company Portal sync and Check access, restarted. Same certificate error."},
+    {"user": "Removed the VPN profile, synced again and restarted. Still the same error."}
+  ],
+  "model_script": [
+    {"content": "", "tool_calls": [{"name": "get_incident", "args": {"incident_id": "INC-1002"}}]},
+    {"content": "", "tool_calls": [{"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1002"}}]},
+    {"content": "", "tool_calls": [{"name": "search_knowledge_base", "args": {"query": "device certificate expired CERT_EXPIRED"}}]},
+    {"content": "The diagnostic shows your device certificate expired on 2 November. Please connect to the internet (no VPN), open Company Portal > Settings > Sync, wait 5 minutes, then Devices > this device > Check access. Restart and try the VPN again, then tell me what happens."},
+    {"content": "", "tool_calls": [
+      {"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1002"}},
+      {"name": "record_troubleshooting_step", "args": {"incident_id": "INC-1002", "step_description": "Caller ran Company Portal sync + Check access per KB0010003 and restarted. Diagnostic still reports CERT_EXPIRED.", "outcome": "unsuccessful", "kb_article_id": "KB0010003"}}
+    ]},
+    {"content": "Thanks. The certificate is still reported as expired. One more thing to try: open GlobalLink > Settings > Profiles, remove 'Northwind', then run Company Portal > Sync again and restart. Let me know the result."},
+    {"content": "", "tool_calls": [
+      {"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1002"}},
+      {"name": "record_troubleshooting_step", "args": {"incident_id": "INC-1002", "step_description": "Caller removed VPN profile and re-synced per KB0010015. Diagnostic still reports CERT_EXPIRED.", "outcome": "unsuccessful", "kb_article_id": "KB0010015"}}
+    ]},
+    {"content": "", "tool_calls": [{"name": "record_troubleshooting_step", "args": {"incident_id": "INC-1002", "step_description": "Asked caller to try re-enrolment a third time.", "outcome": "inconclusive", "kb_article_id": "KB0010003"}}]},
+    {"content": "", "tool_calls": [{"name": "escalate_incident", "args": {"incident_id": "INC-1002", "target_group": "Identity & Access L2", "reason": "Device certificate on LT-5530 expired 2026-11-02. Re-enrolment (KB0010003) and VPN profile reset (KB0010015) both unsuccessful; diagnostics DR-INC-1002-001..003 all CERT_EXPIRED. Likely CA/enrolment issue."}}]},
+    {"content": "I'm sorry this is still not working. We've tried the two standard fixes, so I've escalated INC-1002 to the Identity & Access team, who can reissue the certificate on their side. They've been notified with everything we tried, and they'll contact you."}
+  ]
+}

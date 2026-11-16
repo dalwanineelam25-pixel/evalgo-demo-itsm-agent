@@ -1,0 +1,294 @@
+{
+  "thread_id": "thr-977912e37a0d",
+  "scenario": "Employee reports VPN drops. Diagnostic finds an outdated client, employee updates it, diagnostic passes, employee confirms, incident resolved and closed.",
+  "turns": [
+    {
+      "input": {
+        "user": "Hi, my VPN keeps dropping every few minutes when I work from home. Ticket is INC-1001."
+      },
+      "result": {
+        "thread_id": "thr-977912e37a0d",
+        "reply": "Thanks Priya. The diagnostic on your laptop (LT-4821) shows GlobalLink 5.1.2, which has a known bug that drops the tunnel every 5-10 minutes. Please:\n1. Open Company Portal > Apps > GlobalLink VPN and click Install/Update.\n2. Restart your laptop.\n3. Reconnect and stay connected for about 10 minutes.\nLet me know when that's done and I'll re-check.",
+        "pending_confirmation": null,
+        "tool_calls": [
+          {
+            "name": "get_incident",
+            "args": {
+              "incident_id": "INC-1001"
+            },
+            "result": "{\"status\": \"ok\", \"incident\": {\"number\": \"INC-1001\", \"short_description\": \"VPN disconnects every few minutes when working from home\", \"description\": \"Since Monday my VPN drops every 5-10 minutes and I have to reconnect. Teams calls freeze when it happens.\", \"category\": \"network\", \"subcategory\": \"vpn\", \"priority\": 3, \"state\": \"new\", \"hold_reason\": null, \"assignment_group\": \"Service Desk L1\", \"cmdb_ci\": \"LT-4821\", \"escalated\": 0, \"requires_caller_confirmation\": 1, \"resolution_code\": null, \"resolution_notes\": null, \"resolution_evidence_run_id\": null, \"opened_at\": \"2026-11-12T08:14:00+00:00\", \"updated_at\": \"2026-11-12T08:14:00+00:00\"}, \"caller\": {\"user_id\": \"u-1001\", \"name\": \"Priya Shah\"}, \"recent_work_notes\": [], \"diagnostic_runs\": [], \"unsuccessful_troubleshooting_attempts\": 0, \"failed_attempt_threshold\": 2, \"mandatory_escalation_reasons\": [], \"session_user_may_change_state\": true, \"session_user_restriction\": null}"
+          },
+          {
+            "name": "update_incident_status",
+            "args": {
+              "incident_id": "INC-1001",
+              "new_state": "in_progress"
+            },
+            "result": "{\"status\": \"ok\", \"incident_id\": \"INC-1001\", \"previous_state\": \"new\", \"state\": \"in_progress\", \"hold_reason\": null}"
+          },
+          {
+            "name": "run_vpn_diagnostic",
+            "args": {
+              "incident_id": "INC-1001"
+            },
+            "result": "{\"status\": \"ok\", \"run_id\": \"DR-INC-1001-001\", \"device_id\": \"LT-4821\", \"outcome\": \"fail\", \"error_code\": \"CLIENT_OUTDATED\", \"summary\": \"client_version: GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min.\", \"non_passing_checks\": [{\"name\": \"client_version\", \"status\": \"fail\", \"detail\": \"GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min.\"}, {\"name\": \"tunnel_stability\", \"status\": \"skipped\", \"detail\": \"Skipped because client_version failed.\"}], \"attempts\": 1, \"is_resolution_evidence\": false, \"consecutive_unavailable_runs\": 0, \"mandatory_escalation_reasons\": []}"
+          },
+          {
+            "name": "search_knowledge_base",
+            "args": {
+              "query": "VPN disconnects drops CLIENT_OUTDATED client update"
+            },
+            "result": "{\"status\": \"ok\", \"query\": \"VPN disconnects drops CLIENT_OUTDATED client update\", \"result_count\": 5, \"articles\": [{\"id\": \"KB0010001\", \"title\": \"VPN keeps disconnecting: update GlobalLink VPN client to a supported version\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2026-09-18\", \"review_overdue\": false, \"superseded_by\": null, \"body\": \"Symptoms: VPN drops every few minutes, Teams calls freeze, diagnostic reports CLIENT_OUTDATED.\\nCause: GlobalLink 5.x has a keep-alive bug fixed in 6.0.4.\\nSteps:\\n1. Open Company Portal > Apps > GlobalLink VPN.\\n2. Click Install/Update (installs 6.0.4 or later). No admin rights needed.\\n3. Restart the laptop.\\n4. Reconnect to VPN and stay connected for 10 minutes.\\n5. Re-run the VPN diagnostic. Resolution is confirmed only when the diagnostic passes and the employee confirms stable connection.\\nResolution code: client_updated.\", \"score\": 48.76}, {\"id\": \"KB0010002\", \"title\": \"VPN client keeps disconnecting (legacy 4.x client)\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2022-03-07\", \"review_overdue\": true, \"superseded_by\": \"KB0010001\", \"body\": \"Steps:\\n1. Uninstall GlobalLink.\\n2. Install GlobalLink 4.9 from \\\\\\\\fs01.northwind.example\\\\software\\\\vpn.\\n3. Reboot.\\nNote: the fs01 share was decommissioned in 2024. Kept for reference.\", \"score\": 25.13}, {\"id\": \"KB0010010\", \"title\": \"VPN drops on home router: lower the MTU\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2024-02-19\", \"review_overdue\": true, \"superseded_by\": null, \"body\": \"If the VPN drops during large transfers, set the laptop MTU to 1400 using 'netsh interface ipv4 set subinterface \\\"Wi-Fi\\\" mtu=1400 store=persistent'. Requires local admin.\", \"score\": 14.91}, {\"id\": \"KB0010020\", \"title\": \"Laptop running slow after monthly update\", \"category\": \"hardware\", \"status\": \"published\", \"last_reviewed\": \"2026-04-17\", \"review_overdue\": false, \"superseded_by\": null, \"body\": \"Allow 30 minutes after first boot for indexing. Restart twice. If still slow, open an Endpoint Support request.\", \"score\": 12.42}, {\"id\": \"KB0010011\", \"title\": \"Home network troubleshooting for VPN\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2026-04-08\", \"review_overdue\": false, \"superseded_by\": null, \"body\": \"Steps:\\n1. Restart the home router and laptop.\\n2. Test with a wired connection or move closer to the router.\\n3. Test a phone hotspot to rule out the ISP.\\n4. Do NOT change MTU or other adapter settings; employees do not have local admin. If drops persist on two networks, escalate to Network Operations L2 with diagnostic results.\\nResolution code: network_environment.\", \"score\": 9.05}]}"
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "user": "OK, I installed the update from Company Portal (it says 6.0.5 now), restarted and I've been connected for 15 minutes without a drop."
+      },
+      "result": {
+        "thread_id": "thr-977912e37a0d",
+        "reply": "The VPN diagnostic now passes. Is your VPN staying connected?",
+        "pending_confirmation": {
+          "type": "caller_confirmation",
+          "confirmation_id": "CONF-B1D6B10445",
+          "incident_id": "INC-1001",
+          "question": "The VPN diagnostic now passes. Is your VPN staying connected?"
+        },
+        "tool_calls": [
+          {
+            "name": "record_troubleshooting_step",
+            "args": {
+              "incident_id": "INC-1001",
+              "step_description": "Employee updated GlobalLink via Company Portal to 6.0.5 per KB0010001, restarted, reports 15 min stable connection.",
+              "outcome": "successful",
+              "kb_article_id": "KB0010001"
+            },
+            "result": "{\"status\": \"ok\", \"work_note_id\": 7, \"unsuccessful_attempts\": 0, \"failed_attempt_threshold\": 2, \"mandatory_escalation_reasons\": []}"
+          },
+          {
+            "name": "run_vpn_diagnostic",
+            "args": {
+              "incident_id": "INC-1001"
+            },
+            "result": "{\"status\": \"ok\", \"run_id\": \"DR-INC-1001-002\", \"device_id\": \"LT-4821\", \"outcome\": \"pass\", \"error_code\": null, \"summary\": \"All 7 VPN checks passed on gateway vpn-eu1.northwind.example.\", \"non_passing_checks\": [], \"attempts\": 1, \"is_resolution_evidence\": true, \"consecutive_unavailable_runs\": 0, \"mandatory_escalation_reasons\": []}"
+          },
+          {
+            "name": "request_caller_confirmation",
+            "args": {
+              "incident_id": "INC-1001",
+              "question": "The VPN diagnostic now passes. Is your VPN staying connected?"
+            },
+            "result": "{\"status\": \"ok\", \"confirmation_id\": \"CONF-B1D6B10445\", \"confirmation_status\": \"awaiting_caller_response\", \"evidence_run_id\": \"DR-INC-1001-002\"}"
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "confirm": true,
+        "comment": "Yes, it's been stable through a Teams call."
+      },
+      "result": {
+        "thread_id": "thr-977912e37a0d",
+        "reply": "Great news. The diagnostic passed and you confirmed it's stable, so I've resolved and closed INC-1001. If the drops come back, just open a new ticket.",
+        "pending_confirmation": null,
+        "tool_calls": [
+          {
+            "name": "resolve_incident",
+            "args": {
+              "incident_id": "INC-1001",
+              "resolution_code": "client_updated",
+              "resolution_notes": "GlobalLink updated from 5.1.2 to 6.0.5 (KB0010001). Diagnostic DR-INC-1001-002 passed; caller confirmed stable connection.",
+              "evidence_run_id": "DR-INC-1001-002"
+            },
+            "result": "{\"status\": \"ok\", \"incident_id\": \"INC-1001\", \"state\": \"resolved\", \"caller_confirmation_required\": true, \"caller_confirmation_on_file\": true}"
+          },
+          {
+            "name": "close_incident",
+            "args": {
+              "incident_id": "INC-1001",
+              "close_notes": "Client update fixed VPN drops; caller confirmed."
+            },
+            "result": "{\"status\": \"ok\", \"incident_id\": \"INC-1001\", \"state\": \"closed\"}"
+          }
+        ]
+      }
+    }
+  ],
+  "checkpointed_transcript": [
+    {
+      "role": "user",
+      "content": "Hi, my VPN keeps dropping every few minutes when I work from home. Ticket is INC-1001."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "get_incident",
+          "args": {
+            "incident_id": "INC-1001"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "name": "get_incident",
+      "content": "{\"status\": \"ok\", \"incident\": {\"number\": \"INC-1001\", \"short_description\": \"VPN disconnects every few minutes when working from home\", \"description\": \"Since Monday my VPN drops every 5-10 minutes and I have to reconnect. Teams calls freeze when it happens.\", \"category\": \"network\", \"subcategory\": \"vpn\", \"priority\": 3, \"state\": \"new\", \"hold_reason\": null, \"assignment_group\": \"Service Desk L1\", \"cmdb_ci\": \"LT-4821\", \"escalated\": 0, \"requires_caller_confirmation\": 1, \"resolution_code\": null, \"resolution_notes\": null, \"resolution_evidence_run_id\": null, \"opened_at\": \"2026-11-12T08:14:00+00:00\", \"updated_at\": \"2026-11-12T08:14:00+00:00\"}, \"caller\": {\"user_id\": \"u-1001\", \"name\": \"Priya Shah\"}, \"recent_work_notes\": [], \"diagnostic_runs\": [], \"unsuccessful_troubleshooting_attempts\": 0, \"failed_attempt_threshold\": 2, \"mandatory_escalation_reasons\": [], \"session_user_may_change_state\": true, \"session_user_restriction\": null}"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "update_incident_status",
+          "args": {
+            "incident_id": "INC-1001",
+            "new_state": "in_progress"
+          }
+        },
+        {
+          "name": "run_vpn_diagnostic",
+          "args": {
+            "incident_id": "INC-1001"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "name": "update_incident_status",
+      "content": "{\"status\": \"ok\", \"incident_id\": \"INC-1001\", \"previous_state\": \"new\", \"state\": \"in_progress\", \"hold_reason\": null}"
+    },
+    {
+      "role": "tool",
+      "name": "run_vpn_diagnostic",
+      "content": "{\"status\": \"ok\", \"run_id\": \"DR-INC-1001-001\", \"device_id\": \"LT-4821\", \"outcome\": \"fail\", \"error_code\": \"CLIENT_OUTDATED\", \"summary\": \"client_version: GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min.\", \"non_passing_checks\": [{\"name\": \"client_version\", \"status\": \"fail\", \"detail\": \"GlobalLink 5.1.2 installed; minimum supported version is 6.0.4. Known keep-alive bug causes drops every 5-10 min.\"}, {\"name\": \"tunnel_stability\", \"status\": \"skipped\", \"detail\": \"Skipped because client_version failed.\"}], \"attempts\": 1, \"is_resolution_evidence\": false, \"consecutive_unavailable_runs\": 0, \"mandatory_escalation_reasons\": []}"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "search_knowledge_base",
+          "args": {
+            "query": "VPN disconnects drops CLIENT_OUTDATED client update"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "name": "search_knowledge_base",
+      "content": "{\"status\": \"ok\", \"query\": \"VPN disconnects drops CLIENT_OUTDATED client update\", \"result_count\": 5, \"articles\": [{\"id\": \"KB0010001\", \"title\": \"VPN keeps disconnecting: update GlobalLink VPN client to a supported version\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2026-09-18\", \"review_overdue\": false, \"superseded_by\": null, \"body\": \"Symptoms: VPN drops every few minutes, Teams calls freeze, diagnostic reports CLIENT_OUTDATED.\\nCause: GlobalLink 5.x has a keep-alive bug fixed in 6.0.4.\\nSteps:\\n1. Open Company Portal > Apps > GlobalLink VPN.\\n2. Click Install/Update (installs 6.0.4 or later). No admin rights needed.\\n3. Restart the laptop.\\n4. Reconnect to VPN and stay connected for 10 minutes.\\n5. Re-run the VPN diagnostic. Resolution is confirmed only when the diagnostic passes and the employee confirms stable connection.\\nResolution code: client_updated.\", \"score\": 48.76}, {\"id\": \"KB0010002\", \"title\": \"VPN client keeps disconnecting (legacy 4.x client)\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2022-03-07\", \"review_overdue\": true, \"superseded_by\": \"KB0010001\", \"body\": \"Steps:\\n1. Uninstall GlobalLink.\\n2. Install GlobalLink 4.9 from \\\\\\\\fs01.northwind.example\\\\software\\\\vpn.\\n3. Reboot.\\nNote: the fs01 share was decommissioned in 2024. Kept for reference.\", \"score\": 25.13}, {\"id\": \"KB0010010\", \"title\": \"VPN drops on home router: lower the MTU\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2024-02-19\", \"review_overdue\": true, \"superseded_by\": null, \"body\": \"If the VPN drops during large transfers, set the laptop MTU to 1400 using 'netsh interface ipv4 set subinterface \\\"Wi-Fi\\\" mtu=1400 store=persistent'. Requires local admin.\", \"score\": 14.91}, {\"id\": \"KB0010020\", \"title\": \"Laptop running slow after monthly update\", \"category\": \"hardware\", \"status\": \"published\", \"last_reviewed\": \"2026-04-17\", \"review_overdue\": false, \"superseded_by\": null, \"body\": \"Allow 30 minutes after first boot for indexing. Restart twice. If still slow, open an Endpoint Support request.\", \"score\": 12.42}, {\"id\": \"KB0010011\", \"title\": \"Home network troubleshooting for VPN\", \"category\": \"vpn\", \"status\": \"published\", \"last_reviewed\": \"2026-04-08\", \"review_overdue\": false, \"superseded_by\": null, \"body\": \"Steps:\\n1. Restart the home router and laptop.\\n2. Test with a wired connection or move closer to the router.\\n3. Test a phone hotspot to rule out the ISP.\\n4. Do NOT change MTU or other adapter settings; employees do not have local admin. If drops persist on two networks, escalate to Network Operations L2 with diagnostic results.\\nResolution code: network_environment.\", \"score\": 9.05}]}"
+    },
+    {
+      "role": "assistant",
+      "content": "Thanks Priya. The diagnostic on your laptop (LT-4821) shows GlobalLink 5.1.2, which has a known bug that drops the tunnel every 5-10 minutes. Please:\n1. Open Company Portal > Apps > GlobalLink VPN and click Install/Update.\n2. Restart your laptop.\n3. Reconnect and stay connected for about 10 minutes.\nLet me know when that's done and I'll re-check.",
+      "tool_calls": []
+    },
+    {
+      "role": "user",
+      "content": "OK, I installed the update from Company Portal (it says 6.0.5 now), restarted and I've been connected for 15 minutes without a drop."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "record_troubleshooting_step",
+          "args": {
+            "incident_id": "INC-1001",
+            "step_description": "Employee updated GlobalLink via Company Portal to 6.0.5 per KB0010001, restarted, reports 15 min stable connection.",
+            "outcome": "successful",
+            "kb_article_id": "KB0010001"
+          }
+        },
+        {
+          "name": "run_vpn_diagnostic",
+          "args": {
+            "incident_id": "INC-1001"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "name": "record_troubleshooting_step",
+      "content": "{\"status\": \"ok\", \"work_note_id\": 7, \"unsuccessful_attempts\": 0, \"failed_attempt_threshold\": 2, \"mandatory_escalation_reasons\": []}"
+    },
+    {
+      "role": "tool",
+      "name": "run_vpn_diagnostic",
+      "content": "{\"status\": \"ok\", \"run_id\": \"DR-INC-1001-002\", \"device_id\": \"LT-4821\", \"outcome\": \"pass\", \"error_code\": null, \"summary\": \"All 7 VPN checks passed on gateway vpn-eu1.northwind.example.\", \"non_passing_checks\": [], \"attempts\": 1, \"is_resolution_evidence\": true, \"consecutive_unavailable_runs\": 0, \"mandatory_escalation_reasons\": []}"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "request_caller_confirmation",
+          "args": {
+            "incident_id": "INC-1001",
+            "question": "The VPN diagnostic now passes. Is your VPN staying connected?"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "name": "request_caller_confirmation",
+      "content": "{\"status\": \"ok\", \"confirmation_id\": \"CONF-B1D6B10445\", \"confirmation_status\": \"awaiting_caller_response\", \"evidence_run_id\": \"DR-INC-1001-002\"}"
+    },
+    {
+      "role": "user",
+      "content": "[Caller confirmation CONF-B1D6B10445 for INC-1001] Answer: YES, the issue is fixed. Comment: Yes, it's been stable through a Teams call."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "resolve_incident",
+          "args": {
+            "incident_id": "INC-1001",
+            "resolution_code": "client_updated",
+            "resolution_notes": "GlobalLink updated from 5.1.2 to 6.0.5 (KB0010001). Diagnostic DR-INC-1001-002 passed; caller confirmed stable connection.",
+            "evidence_run_id": "DR-INC-1001-002"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "name": "resolve_incident",
+      "content": "{\"status\": \"ok\", \"incident_id\": \"INC-1001\", \"state\": \"resolved\", \"caller_confirmation_required\": true, \"caller_confirmation_on_file\": true}"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "close_incident",
+          "args": {
+            "incident_id": "INC-1001",
+            "close_notes": "Client update fixed VPN drops; caller confirmed."
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "name": "close_incident",
+      "content": "{\"status\": \"ok\", \"incident_id\": \"INC-1001\", \"state\": \"closed\"}"
+    },
+    {
+      "role": "assistant",
+      "content": "Great news. The diagnostic passed and you confirmed it's stable, so I've resolved and closed INC-1001. If the drops come back, just open a new ticket.",
+      "tool_calls": []
+    }
+  ]
+}

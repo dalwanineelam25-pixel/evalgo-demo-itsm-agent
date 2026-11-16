@@ -1,0 +1,30 @@
+2026-11-14 18:04:12,355 INFO itsm_agent.seed seed loaded db=/var/folders/_y/f1dhyl156llfb2nrsq59zsw40000gn/T/itsm-vpn_happy_path-utvb_0hg/itsm.db {'users': 12, 'incidents': 12, 'work_notes': 5, 'escalations': 1}
+2026-11-14 18:04:12,451 INFO itsm_agent.service conversation started thread=thr-977912e37a0d user=u-1001 incident=INC-1001
+2026-11-14 18:04:12,455 INFO itsm_agent.service user_message thread=thr-977912e37a0d user=u-1001 chars=86
+2026-11-14 18:04:12,461 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['get_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,471 INFO itsm_agent.tools tool=get_incident incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=ok code=None
+2026-11-14 18:04:12,474 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['update_incident_status', 'run_vpn_diagnostic'] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,479 INFO itsm_agent.tools tool=update_incident_status incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=ok code=None
+2026-11-14 18:04:12,488 INFO itsm_agent.diag_service diagnose device=LT-4821 behavior=fail
+2026-11-14 18:04:12,488 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 200 -
+2026-11-14 18:04:12,488 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-4821 outcome=fail error_code=CLIENT_OUTDATED
+2026-11-14 18:04:12,494 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=ok code=None outcome=fail
+2026-11-14 18:04:12,496 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['search_knowledge_base'] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,499 INFO itsm_agent.tools tool=search_knowledge_base incident=None actor=u-1001 thread=thr-977912e37a0d status=ok code=None
+2026-11-14 18:04:12,501 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=end_turn tool_calls=[] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,505 INFO itsm_agent.service user_message thread=thr-977912e37a0d user=u-1001 chars=132
+2026-11-14 18:04:12,508 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['record_troubleshooting_step', 'run_vpn_diagnostic'] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,519 INFO itsm_agent.diag_service diagnose device=LT-4821 behavior=pass
+2026-11-14 18:04:12,519 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 200 -
+2026-11-14 18:04:12,519 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-4821 outcome=pass error_code=None
+2026-11-14 18:04:12,520 INFO itsm_agent.tools tool=record_troubleshooting_step incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=ok code=None
+2026-11-14 18:04:12,524 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=ok code=None outcome=pass
+2026-11-14 18:04:12,526 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['request_caller_confirmation'] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,533 INFO itsm_agent.tools tool=request_caller_confirmation incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=awaiting_confirmation code=None
+2026-11-14 18:04:12,539 INFO itsm_agent.service confirmation_answer thread=thr-977912e37a0d user=u-1001 confirmed=True
+2026-11-14 18:04:12,541 INFO itsm_agent.graph caller_confirmation id=CONF-B1D6B10445 incident=INC-1001 status=confirmed
+2026-11-14 18:04:12,543 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['resolve_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,553 INFO itsm_agent.tools tool=resolve_incident incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=ok code=None
+2026-11-14 18:04:12,555 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['close_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,562 INFO itsm_agent.tools tool=close_incident incident=INC-1001 actor=u-1001 thread=thr-977912e37a0d status=ok code=None
+2026-11-14 18:04:12,564 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=end_turn tool_calls=[] input_tokens=None output_tokens=None

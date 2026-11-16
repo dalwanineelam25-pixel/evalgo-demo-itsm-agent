@@ -1,0 +1,27 @@
+{
+  "description": "Employee reports VPN drops. Diagnostic finds an outdated client, employee updates it, diagnostic passes, employee confirms, incident resolved and closed.",
+  "user_id": "u-1001",
+  "incident_id": "INC-1001",
+  "turns": [
+    {"user": "Hi, my VPN keeps dropping every few minutes when I work from home. Ticket is INC-1001."},
+    {"user": "OK, I installed the update from Company Portal (it says 6.0.5 now), restarted and I've been connected for 15 minutes without a drop."},
+    {"confirm": true, "comment": "Yes, it's been stable through a Teams call."}
+  ],
+  "model_script": [
+    {"content": "", "tool_calls": [{"name": "get_incident", "args": {"incident_id": "INC-1001"}}]},
+    {"content": "", "tool_calls": [
+      {"name": "update_incident_status", "args": {"incident_id": "INC-1001", "new_state": "in_progress"}},
+      {"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1001"}}
+    ]},
+    {"content": "", "tool_calls": [{"name": "search_knowledge_base", "args": {"query": "VPN disconnects drops CLIENT_OUTDATED client update"}}]},
+    {"content": "Thanks Priya. The diagnostic on your laptop (LT-4821) shows GlobalLink 5.1.2, which has a known bug that drops the tunnel every 5-10 minutes. Please:\n1. Open Company Portal > Apps > GlobalLink VPN and click Install/Update.\n2. Restart your laptop.\n3. Reconnect and stay connected for about 10 minutes.\nLet me know when that's done and I'll re-check."},
+    {"content": "", "tool_calls": [
+      {"name": "record_troubleshooting_step", "args": {"incident_id": "INC-1001", "step_description": "Employee updated GlobalLink via Company Portal to 6.0.5 per KB0010001, restarted, reports 15 min stable connection.", "outcome": "successful", "kb_article_id": "KB0010001"}},
+      {"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1001"}}
+    ]},
+    {"content": "", "tool_calls": [{"name": "request_caller_confirmation", "args": {"incident_id": "INC-1001", "question": "The VPN diagnostic now passes. Is your VPN staying connected?"}}]},
+    {"content": "", "tool_calls": [{"name": "resolve_incident", "args": {"incident_id": "INC-1001", "resolution_code": "client_updated", "resolution_notes": "GlobalLink updated from 5.1.2 to 6.0.5 (KB0010001). Diagnostic DR-INC-1001-002 passed; caller confirmed stable connection.", "evidence_run_id": "DR-INC-1001-002"}}]},
+    {"content": "", "tool_calls": [{"name": "close_incident", "args": {"incident_id": "INC-1001", "close_notes": "Client update fixed VPN drops; caller confirmed."}}]},
+    {"content": "Great news. The diagnostic passed and you confirmed it's stable, so I've resolved and closed INC-1001. If the drops come back, just open a new ticket."}
+  ]
+}
