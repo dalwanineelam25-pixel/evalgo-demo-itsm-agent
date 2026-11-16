@@ -1,0 +1,34 @@
+2026-11-14 18:04:11,640 INFO itsm_agent.seed seed loaded db=/var/folders/_y/f1dhyl156llfb2nrsq59zsw40000gn/T/itsm-vpn_escalation_after_failures-wjs6fduw/itsm.db {'users': 12, 'incidents': 12, 'work_notes': 5, 'escalations': 1}
+2026-11-14 18:04:11,736 INFO itsm_agent.service conversation started thread=thr-278982def8cf user=u-1002 incident=INC-1002
+2026-11-14 18:04:11,739 INFO itsm_agent.service user_message thread=thr-278982def8cf user=u-1002 chars=62
+2026-11-14 18:04:11,743 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['get_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,751 INFO itsm_agent.tools tool=get_incident incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=ok code=None
+2026-11-14 18:04:11,753 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['run_vpn_diagnostic'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,765 INFO itsm_agent.diag_service diagnose device=LT-5530 behavior=fail
+2026-11-14 18:04:11,766 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 200 -
+2026-11-14 18:04:11,767 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-5530 outcome=fail error_code=CERT_EXPIRED
+2026-11-14 18:04:11,773 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=ok code=None outcome=fail
+2026-11-14 18:04:11,775 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['search_knowledge_base'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,777 INFO itsm_agent.tools tool=search_knowledge_base incident=None actor=u-1002 thread=thr-278982def8cf status=ok code=None
+2026-11-14 18:04:11,779 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=end_turn tool_calls=[] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,783 INFO itsm_agent.service user_message thread=thr-278982def8cf user=u-1002 chars=82
+2026-11-14 18:04:11,786 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['run_vpn_diagnostic', 'record_troubleshooting_step'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,798 INFO itsm_agent.tools tool=record_troubleshooting_step incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=ok code=None
+2026-11-14 18:04:11,799 INFO itsm_agent.diag_service diagnose device=LT-5530 behavior=fail
+2026-11-14 18:04:11,799 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 200 -
+2026-11-14 18:04:11,799 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-5530 outcome=fail error_code=CERT_EXPIRED
+2026-11-14 18:04:11,805 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=ok code=None outcome=fail
+2026-11-14 18:04:11,807 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=end_turn tool_calls=[] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,811 INFO itsm_agent.service user_message thread=thr-278982def8cf user=u-1002 chars=74
+2026-11-14 18:04:11,814 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['run_vpn_diagnostic', 'record_troubleshooting_step'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,826 INFO itsm_agent.diag_service diagnose device=LT-5530 behavior=fail
+2026-11-14 18:04:11,826 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 200 -
+2026-11-14 18:04:11,826 INFO itsm_agent.diagnostics.client vpn_diagnostic attempt=1 device=LT-5530 outcome=fail error_code=CERT_EXPIRED
+2026-11-14 18:04:11,827 INFO itsm_agent.tools tool=record_troubleshooting_step incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=ok code=None
+2026-11-14 18:04:11,831 INFO itsm_agent.tools tool=run_vpn_diagnostic incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=ok code=None outcome=fail
+2026-11-14 18:04:11,833 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['record_troubleshooting_step'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,839 INFO itsm_agent.tools tool=record_troubleshooting_step incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=rejected code=escalation_required
+2026-11-14 18:04:11,841 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=tool_use tool_calls=['escalate_incident'] input_tokens=None output_tokens=None
+2026-11-14 18:04:11,848 INFO itsm_agent.tools tool=escalate_incident incident=INC-1002 actor=u-1002 thread=thr-278982def8cf status=ok code=None
+2026-11-14 18:04:11,850 INFO itsm_agent.graph model_call model=scripted-fixture stop_reason=end_turn tool_calls=[] input_tokens=None output_tokens=None
+2026-11-14 18:04:12,100 INFO itsm_agent.diag_service 127.0.0.1 "POST /v1/vpn/diagnose HTTP/1.1" 504 -

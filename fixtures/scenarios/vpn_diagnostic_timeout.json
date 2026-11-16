@@ -1,0 +1,19 @@
+{
+  "description": "Diagnostic service times out for the device. The timeout is recorded, a resolve attempt is rejected because a timeout is not evidence, and after three unavailable runs the agent escalates.",
+  "user_id": "u-1003",
+  "incident_id": "INC-1003",
+  "turns": [
+    {"user": "VPN is really slow and drops when I upload big files to SharePoint. INC-1003."},
+    {"user": "It seems a bit better now actually. Can you just close it?"}
+  ],
+  "model_script": [
+    {"content": "", "tool_calls": [{"name": "get_incident", "args": {"incident_id": "INC-1003"}}]},
+    {"content": "", "tool_calls": [{"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1003"}}]},
+    {"content": "I tried to run a VPN diagnostic on your laptop, but the diagnostic service didn't respond in time, so I couldn't check anything yet. Are you on Wi-Fi or a wired connection, and does it also happen on a phone hotspot?"},
+    {"content": "", "tool_calls": [{"name": "resolve_incident", "args": {"incident_id": "INC-1003", "resolution_code": "transient_recovered", "resolution_notes": "Caller reports improvement.", "evidence_run_id": "DR-INC-1003-001"}}]},
+    {"content": "", "tool_calls": [{"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1003"}}]},
+    {"content": "", "tool_calls": [{"name": "run_vpn_diagnostic", "args": {"incident_id": "INC-1003"}}]},
+    {"content": "", "tool_calls": [{"name": "escalate_incident", "args": {"incident_id": "INC-1003", "target_group": "Network Operations L2", "reason": "VPN slow/drops on large uploads. Diagnostic service timed out 3 times for LT-6107 (DR-INC-1003-001..003); cannot verify. Caller reports partial improvement, not verified."}}]},
+    {"content": "I'm glad it feels better, but I can't close the ticket yet: I haven't been able to verify the connection because the diagnostic service timed out three times. I've passed INC-1003 to Network Operations, who can check it directly. They'll follow up with you."}
+  ]
+}

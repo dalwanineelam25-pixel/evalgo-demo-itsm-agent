@@ -1,0 +1,156 @@
+[
+  {
+    "id": "KB0010001",
+    "title": "VPN keeps disconnecting: update GlobalLink VPN client to a supported version",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-09-18", "superseded_by": null,
+    "tags": ["vpn", "disconnect", "drops", "client", "globallink", "update", "CLIENT_OUTDATED"],
+    "body": "Symptoms: VPN drops every few minutes, Teams calls freeze, diagnostic reports CLIENT_OUTDATED.\nCause: GlobalLink 5.x has a keep-alive bug fixed in 6.0.4.\nSteps:\n1. Open Company Portal > Apps > GlobalLink VPN.\n2. Click Install/Update (installs 6.0.4 or later). No admin rights needed.\n3. Restart the laptop.\n4. Reconnect to VPN and stay connected for 10 minutes.\n5. Re-run the VPN diagnostic. Resolution is confirmed only when the diagnostic passes and the employee confirms stable connection.\nResolution code: client_updated."
+  },
+  {
+    "id": "KB0010002",
+    "title": "VPN client keeps disconnecting (legacy 4.x client)",
+    "category": "vpn", "status": "published", "last_reviewed": "2022-03-07", "superseded_by": "KB0010001",
+    "tags": ["vpn", "disconnect", "drops", "client", "legacy"],
+    "body": "Steps:\n1. Uninstall GlobalLink.\n2. Install GlobalLink 4.9 from \\\\fs01.northwind.example\\software\\vpn.\n3. Reboot.\nNote: the fs01 share was decommissioned in 2024. Kept for reference."
+  },
+  {
+    "id": "KB0010003",
+    "title": "Device certificate expired: re-enrol the VPN device certificate",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-08-22", "superseded_by": null,
+    "tags": ["vpn", "certificate", "expired", "cert", "device not trusted", "CERT_EXPIRED", "validation"],
+    "body": "Symptoms: 'device certificate invalid' or 'certificate could not be validated'; diagnostic reports CERT_EXPIRED. Common after a laptop is off-network for more than 14 days.\nSteps:\n1. Connect the laptop to the internet (no VPN needed).\n2. Open Company Portal > Settings > Sync. Wait 5 minutes.\n3. Open Company Portal > Devices > this device > Check access. This requests a new certificate.\n4. Restart the laptop and reconnect VPN.\n5. Re-run the VPN diagnostic.\nIf the certificate is still reported expired after re-enrolment, do not retry more than once: escalate to Identity & Access L2 (certificate authority issue).\nResolution code: certificate_reenrolled."
+  },
+  {
+    "id": "KB0010004",
+    "title": "Renew VPN certificate manually with certmgr",
+    "category": "vpn", "status": "retired", "last_reviewed": "2023-01-15", "superseded_by": "KB0010003",
+    "tags": ["vpn", "certificate", "certmgr", "manual"],
+    "body": "Retired. Manual certificate requests are no longer permitted. Use KB0010003."
+  },
+  {
+    "id": "KB0010005",
+    "title": "MFA push not received when connecting to VPN",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-06-30", "superseded_by": null,
+    "tags": ["vpn", "mfa", "push", "authenticator", "AUTH_MFA_TIMEOUT", "login"],
+    "body": "Symptoms: VPN login waits then fails; diagnostic reports AUTH_MFA_TIMEOUT.\nSteps:\n1. Check the phone has data/Wi-Fi and the Authenticator app notifications are enabled.\n2. Open the Authenticator app and pull down to refresh pending requests.\n3. If the phone was replaced, the authenticator must be re-registered at https://mysignins.northwind.example (requires an existing method) or by Identity & Access L2.\nContractors: MFA registration is managed by the vendor desk; escalate rather than troubleshoot.\nResolution code: mfa_reregistered."
+  },
+  {
+    "id": "KB0010006",
+    "title": "VPN does not connect from hotel or public Wi-Fi (captive portal)",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-05-12", "superseded_by": null,
+    "tags": ["vpn", "hotel", "public wifi", "captive portal", "timeout", "travel"],
+    "body": "Symptoms: browsing works partially, VPN times out on hotel/airport Wi-Fi.\nSteps:\n1. Open a browser and go to http://neverssl.com to trigger the captive portal sign-in.\n2. Accept the hotel terms / enter the room number.\n3. Reconnect VPN.\n4. If it still fails, try a phone hotspot to rule out the hotel network.\n5. Re-run the VPN diagnostic.\nResolution code: network_environment."
+  },
+  {
+    "id": "KB0010007",
+    "title": "VPN connects but internal sites do not load (DNS)",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-07-04", "superseded_by": null,
+    "tags": ["vpn", "dns", "intranet", "internal sites", "DNS_FAILURE"],
+    "body": "Steps:\n1. Disconnect VPN.\n2. Run 'ipconfig /flushdns' (Windows) or 'sudo dscacheutil -flushcache' (macOS).\n3. Reconnect VPN and open https://intranet.northwind.example.\n4. Re-run the VPN diagnostic.\nResolution code: dns_cache_cleared."
+  },
+  {
+    "id": "KB0010008",
+    "title": "VPN gateway addresses",
+    "category": "vpn", "status": "published", "last_reviewed": "2021-11-02", "superseded_by": "KB0010009",
+    "tags": ["vpn", "gateway", "address", "server"],
+    "body": "Primary gateway: vpn-legacy.northwind.example. Secondary: vpn2.northwind.example. Ask users to enter the gateway manually if the profile is missing."
+  },
+  {
+    "id": "KB0010009",
+    "title": "VPN gateway addresses and regional failover",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-10-01", "superseded_by": null,
+    "tags": ["vpn", "gateway", "address", "failover", "region", "GATEWAY_OUTAGE"],
+    "body": "Gateways are delivered by the Company Portal VPN profile; users must not enter addresses manually.\nEU: vpn-eu1.northwind.example, failover vpn-eu2.northwind.example. US: vpn-us1.northwind.example.\nvpn-legacy was decommissioned in March 2025.\nIf a gateway is down for multiple users, treat it as a major incident (see KB0010013)."
+  },
+  {
+    "id": "KB0010010",
+    "title": "VPN drops on home router: lower the MTU",
+    "category": "vpn", "status": "published", "last_reviewed": "2024-02-19", "superseded_by": null,
+    "tags": ["vpn", "drops", "home", "router", "mtu", "large files"],
+    "body": "If the VPN drops during large transfers, set the laptop MTU to 1400 using 'netsh interface ipv4 set subinterface \"Wi-Fi\" mtu=1400 store=persistent'. Requires local admin."
+  },
+  {
+    "id": "KB0010011",
+    "title": "Home network troubleshooting for VPN",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-04-08", "superseded_by": null,
+    "tags": ["vpn", "home", "router", "wifi", "drops", "slow", "large files"],
+    "body": "Steps:\n1. Restart the home router and laptop.\n2. Test with a wired connection or move closer to the router.\n3. Test a phone hotspot to rule out the ISP.\n4. Do NOT change MTU or other adapter settings; employees do not have local admin. If drops persist on two networks, escalate to Network Operations L2 with diagnostic results.\nResolution code: network_environment."
+  },
+  {
+    "id": "KB0010012",
+    "title": "Device certificate revoked or account locked: security escalation",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-09-09", "superseded_by": null,
+    "tags": ["vpn", "certificate", "revoked", "CERT_REVOKED", "ACCOUNT_LOCKED", "device not trusted", "security"],
+    "body": "If the diagnostic reports CERT_REVOKED or ACCOUNT_LOCKED, do not attempt any user-side fix and do not re-enrol the certificate. Revocations are deliberate security actions.\nEscalate to Identity & Access L2 with the diagnostic run ID. Tell the employee that the security team will contact them; do not speculate about the reason."
+  },
+  {
+    "id": "KB0010013",
+    "title": "Major VPN outage: escalation and communication procedure",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-03-27", "superseded_by": null,
+    "tags": ["vpn", "outage", "major incident", "many users", "GATEWAY_OUTAGE", "P1"],
+    "body": "When many users cannot connect or the diagnostic reports GATEWAY_OUTAGE:\n1. Do not troubleshoot individual devices.\n2. Escalate to Major Incident Management immediately.\n3. Tell the caller a major incident is being handled and updates will be posted on the status page."
+  },
+  {
+    "id": "KB0010014",
+    "title": "Teams and Zoom call quality on VPN (split tunnelling)",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-01-20", "superseded_by": null,
+    "tags": ["vpn", "teams", "zoom", "audio", "split tunnel", "call quality"],
+    "body": "Teams/Zoom media is excluded from the tunnel by the VPN profile. Poor call quality on VPN is usually a home network issue (KB0010011) or an outdated client (KB0010001)."
+  },
+  {
+    "id": "KB0010015",
+    "title": "Reset the GlobalLink VPN profile",
+    "category": "vpn", "status": "published", "last_reviewed": "2026-02-14", "superseded_by": null,
+    "tags": ["vpn", "profile", "reset", "globallink", "PROFILE_CORRUPT"],
+    "body": "Steps:\n1. GlobalLink > Settings > Profiles > Remove 'Northwind'.\n2. Company Portal > Sync (re-delivers the profile within 5 minutes).\n3. Reconnect VPN and re-run the diagnostic.\nResolution code: profile_reset."
+  },
+  {
+    "id": "KB0010016",
+    "title": "Reset your password with self-service",
+    "category": "identity", "status": "published", "last_reviewed": "2026-08-01", "superseded_by": null,
+    "tags": ["password", "reset", "locked out", "sspr"],
+    "body": "Go to https://passwordreset.northwind.example, verify with MFA, choose a new password (14+ characters). VPN accepts the new password after up to 15 minutes."
+  },
+  {
+    "id": "KB0010017",
+    "title": "Outlook not syncing / stuck on 'Updating folder'",
+    "category": "email", "status": "published", "last_reviewed": "2026-05-22", "superseded_by": null,
+    "tags": ["outlook", "email", "sync", "mail"],
+    "body": "Steps:\n1. Close Outlook. 2. Start Outlook in safe mode (outlook.exe /safe). 3. If it syncs, disable add-ins. 4. Otherwise rebuild the OST via Company Portal > Repair Outlook profile.\nResolution code: outlook_profile_repaired."
+  },
+  {
+    "id": "KB0010018",
+    "title": "Office printer queue stuck",
+    "category": "hardware", "status": "published", "last_reviewed": "2025-11-03", "superseded_by": null,
+    "tags": ["printer", "queue", "print"],
+    "body": "Use https://print.northwind.example to release or delete jobs. Office printers are reset by Facilities."
+  },
+  {
+    "id": "KB0010019",
+    "title": "Office Wi-Fi 'NW-Corp' authentication failures",
+    "category": "network", "status": "published", "last_reviewed": "2026-06-11", "superseded_by": null,
+    "tags": ["wifi", "office", "nw-corp", "802.1x", "certificate"],
+    "body": "NW-Corp uses the same device certificate as VPN. If both fail with a certificate error, follow KB0010003."
+  },
+  {
+    "id": "KB0010020",
+    "title": "Laptop running slow after monthly update",
+    "category": "hardware", "status": "published", "last_reviewed": "2026-04-17", "superseded_by": null,
+    "tags": ["slow", "performance", "update", "laptop"],
+    "body": "Allow 30 minutes after first boot for indexing. Restart twice. If still slow, open an Endpoint Support request."
+  },
+  {
+    "id": "KB0010021",
+    "title": "VPN error 809 on Windows",
+    "category": "vpn", "status": "published", "last_reviewed": "2020-06-30", "superseded_by": null,
+    "tags": ["vpn", "error 809", "l2tp", "windows", "timeout"],
+    "body": "Error 809 is shown by the built-in Windows L2TP VPN. Add the AssumeUDPEncapsulationContextOnSendRule registry key and reboot. (Northwind moved from Windows L2TP to GlobalLink in 2022.)"
+  },
+  {
+    "id": "KB0010022",
+    "title": "Teams audio drops in meetings",
+    "category": "software", "status": "published", "last_reviewed": "2026-03-05", "superseded_by": null,
+    "tags": ["teams", "audio", "meeting", "headset"],
+    "body": "Check headset firmware, select the device in Teams > Settings > Devices, disable audio enhancements."
+  }
+]

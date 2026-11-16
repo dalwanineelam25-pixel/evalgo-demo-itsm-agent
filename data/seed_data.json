@@ -1,0 +1,127 @@
+{
+  "users": [
+    {"user_id": "u-1001", "name": "Priya Shah", "email": "priya.shah@northwind.example", "role": "employee", "groups": [], "active": true},
+    {"user_id": "u-1002", "name": "Marcus Lee", "email": "marcus.lee@northwind.example", "role": "employee", "groups": [], "active": true},
+    {"user_id": "u-1003", "name": "Elena Rossi", "email": "elena.rossi@northwind.example", "role": "employee", "groups": [], "active": true},
+    {"user_id": "u-1004", "name": "Tomas Silva", "email": "tomas.silva@northwind.example", "role": "employee", "groups": [], "active": false},
+    {"user_id": "u-1005", "name": "Wei Chen", "email": "wei.chen@partner.northwind.example", "role": "contractor", "groups": [], "active": true},
+    {"user_id": "u-1006", "name": "Aisha Bello", "email": "aisha.bello@northwind.example", "role": "employee", "groups": [], "active": true},
+    {"user_id": "u-1007", "name": "Jonas Berg", "email": "jonas.berg@northwind.example", "role": "employee", "groups": [], "active": true},
+    {"user_id": "u-1008", "name": "Lena Fischer", "email": "lena.fischer@northwind.example", "role": "employee", "groups": [], "active": true},
+    {"user_id": "u-2001", "name": "Dana Whitfield", "email": "dana.whitfield@northwind.example", "role": "service_desk", "groups": ["Service Desk L1"], "active": true},
+    {"user_id": "u-2002", "name": "Raj Patel", "email": "raj.patel@northwind.example", "role": "network_engineer", "groups": ["Network Operations L2", "Service Desk L1"], "active": true},
+    {"user_id": "u-3001", "name": "Grace Okafor", "email": "grace.okafor@northwind.example", "role": "auditor", "groups": [], "active": true},
+    {"user_id": "svc-monitoring", "name": "Network Monitoring", "email": "monitoring@northwind.example", "role": "service_account", "groups": [], "active": true}
+  ],
+  "incidents": [
+    {
+      "number": "INC-1001", "caller_id": "u-1001",
+      "short_description": "VPN disconnects every few minutes when working from home",
+      "description": "Since Monday my VPN drops every 5-10 minutes and I have to reconnect. Teams calls freeze when it happens.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-4821",
+      "opened_at": "2026-11-12T08:14:00+00:00"
+    },
+    {
+      "number": "INC-1002", "caller_id": "u-1002",
+      "short_description": "Cannot connect to VPN - certificate error",
+      "description": "GlobalLink says 'The server certificate could not be validated / device certificate invalid'. Started this morning.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "in_progress",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-5530",
+      "opened_at": "2026-11-12T09:02:00+00:00"
+    },
+    {
+      "number": "INC-1003", "caller_id": "u-1003",
+      "short_description": "VPN very slow and drops on large file transfers",
+      "description": "VPN connects but SharePoint uploads time out and the tunnel drops. Home fibre connection.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-6107",
+      "opened_at": "2026-11-12T10:30:00+00:00"
+    },
+    {
+      "number": "INC-1004", "caller_id": "u-1001",
+      "short_description": "Outlook not syncing new mail",
+      "description": "Outlook desktop stuck on 'Updating Inbox'. Webmail works.",
+      "category": "software", "subcategory": "email", "priority": 4, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-4821",
+      "opened_at": "2026-11-12T11:45:00+00:00"
+    },
+    {
+      "number": "INC-1005", "caller_id": "u-1007",
+      "short_description": "Entire Sales team cannot connect to VPN",
+      "description": "Nobody on the Sales floor can connect to the VPN since 07:50. Error: gateway not responding. 40+ people affected.",
+      "category": "network", "subcategory": "vpn", "priority": 1, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-8810",
+      "opened_at": "2026-11-13T07:58:00+00:00"
+    },
+    {
+      "number": "INC-1006", "caller_id": "u-1002",
+      "short_description": "VPN prompt asks for password repeatedly",
+      "description": "Old incident, resolved after password reset.",
+      "category": "network", "subcategory": "vpn", "priority": 4, "state": "closed",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-5530",
+      "resolution_code": "password_reset", "resolution_notes": "Caller reset password via self-service; VPN connected.",
+      "resolved_by": "u-2001", "resolved_at": "2026-10-03T14:10:00+00:00",
+      "closed_by": "u-2001", "closed_at": "2026-10-03T14:12:00+00:00",
+      "opened_at": "2026-10-03T13:20:00+00:00"
+    },
+    {
+      "number": "INC-1007", "caller_id": "u-1003",
+      "short_description": "VPN tunnel drops every hour on the hour",
+      "description": "Tunnel drops at exactly the top of each hour. Started after router firmware update.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "in_progress",
+      "assignment_group": "Network Operations L2", "cmdb_ci": "LT-6107", "escalated": 1,
+      "opened_at": "2026-11-05T15:00:00+00:00"
+    },
+    {
+      "number": "INC-1008", "caller_id": "u-1004",
+      "short_description": "VPN not connecting on personal laptop",
+      "description": "Trying to connect from my home PC.",
+      "category": "network", "subcategory": "vpn", "priority": 4, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-1180",
+      "opened_at": "2026-11-10T18:20:00+00:00"
+    },
+    {
+      "number": "INC-1009", "caller_id": "u-1005",
+      "short_description": "VPN MFA prompt never arrives",
+      "description": "Contractor laptop. MFA push for VPN never shows up on my phone.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-3300",
+      "opened_at": "2026-11-13T09:15:00+00:00"
+    },
+    {
+      "number": "INC-1010", "caller_id": "u-1006",
+      "short_description": "VPN says my device is not trusted",
+      "description": "Got a new phone last week, now laptop VPN says 'device not trusted'.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-7002",
+      "opened_at": "2026-11-13T10:05:00+00:00"
+    },
+    {
+      "number": "INC-1011", "caller_id": "u-1008",
+      "short_description": "VPN will not connect from hotel Wi-Fi",
+      "description": "Travelling for a customer visit. Hotel Wi-Fi works for browsing but VPN times out.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "on_hold", "hold_reason": "awaiting_caller",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "LT-9034",
+      "opened_at": "2026-11-13T19:40:00+00:00"
+    },
+    {
+      "number": "INC-1012", "caller_id": "svc-monitoring",
+      "short_description": "Synthetic VPN probe failing from branch office Lyon",
+      "description": "Automated: synthetic VPN login probe from Lyon branch failed 3 times in 15 minutes.",
+      "category": "network", "subcategory": "vpn", "priority": 3, "state": "new",
+      "assignment_group": "Service Desk L1", "cmdb_ci": "PRB-LYON-01", "requires_caller_confirmation": 0,
+      "opened_at": "2026-11-14T06:10:00+00:00"
+    }
+  ],
+  "work_notes": [
+    {"incident_number": "INC-1002", "author_id": "u-2001", "note_type": "human", "body": "Caller says the error started after laptop was off-network for 3 weeks (parental leave). Likely expired device cert.", "created_at": "2026-11-12T09:20:00+00:00"},
+    {"incident_number": "INC-1007", "author_id": "u-2001", "note_type": "troubleshooting", "outcome": "unsuccessful", "kb_article_id": "KB0010011", "body": "Router restarted, wired connection tested. Drops persist.", "created_at": "2026-11-05T15:40:00+00:00"},
+    {"incident_number": "INC-1007", "author_id": "u-2001", "note_type": "troubleshooting", "outcome": "unsuccessful", "kb_article_id": "KB0010015", "body": "VPN profile reset. Drops persist at the top of the hour.", "created_at": "2026-11-05T16:05:00+00:00"},
+    {"incident_number": "INC-1007", "author_id": "u-2001", "note_type": "human", "body": "Escalated to Network Operations L2 after two unsuccessful attempts.", "created_at": "2026-11-05T16:07:00+00:00"},
+    {"incident_number": "INC-1011", "author_id": "u-2001", "note_type": "human", "body": "Asked caller to open a browser to trigger the hotel captive portal sign-in and then retry VPN. Awaiting reply.", "created_at": "2026-11-13T19:55:00+00:00"}
+  ],
+  "escalations": [
+    {"incident_number": "INC-1007", "from_group": "Service Desk L1", "to_group": "Network Operations L2", "reason": "Two unsuccessful troubleshooting attempts; drops correlate with hourly schedule.", "reason_codes": ["failed_attempts_threshold"], "escalated_by": "u-2001", "created_at": "2026-11-05T16:07:00+00:00"}
+  ]
+}

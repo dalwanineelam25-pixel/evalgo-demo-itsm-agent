@@ -1,0 +1,32 @@
+{
+  "incident": {
+    "number": "INC-1003",
+    "caller_id": "u-1003",
+    "short_description": "VPN very slow and drops on large file transfers",
+    "description": "VPN connects but SharePoint uploads time out and the tunnel drops. Home fibre connection.",
+    "category": "network",
+    "subcategory": "vpn",
+    "priority": 3,
+    "state": "new",
+    "hold_reason": null,
+    "assignment_group": "Service Desk L1",
+    "assigned_to": null,
+    "cmdb_ci": "LT-6107",
+    "requires_caller_confirmation": 1,
+    "escalated": 0,
+    "resolution_code": null,
+    "resolution_notes": null,
+    "resolution_evidence_run_id": null,
+    "resolved_by": null,
+    "resolved_at": null,
+    "closed_by": null,
+    "closed_at": null,
+    "opened_at": "2026-11-12T10:30:00+00:00",
+    "updated_at": "2026-11-12T10:30:00+00:00"
+  },
+  "work_notes": [],
+  "diagnostic_runs": [],
+  "caller_confirmations": [],
+  "escalations": [],
+  "audit": []
+}
