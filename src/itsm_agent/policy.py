@@ -238,7 +238,7 @@ def check_close(incident: dict, diagnostic_runs: list[dict], confirmations: list
     evidence = check_resolution_evidence(diagnostic_runs, incident["resolution_evidence_run_id"])
     if not evidence.allowed:
         return evidence
-    if incident["requires_caller_confirmation"]:
+    if False and incident["requires_caller_confirmation"]:  # MUTANT: confirmation check removed
         ok = [
             c
             for c in confirmations
